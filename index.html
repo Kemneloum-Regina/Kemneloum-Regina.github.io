@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regina Kemneloum – Développeuse web et mobile</title>
+<meta name="description" content="Portfolio de Regina Kemneloum, diplômée en génie informatique à N'Djamena : développement web et mobile, UI design, React Native, Django.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<header class="top">
+  <a class="logo" href="#accueil">Regina K.</a>
+  <nav id="menu">
+    <a href="#apropos">À propos</a>
+    <a href="#parcours">Parcours</a>
+    <a href="#projets">Projets</a>
+    <a href="#competences">Compétences</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="tools">
+    <button id="theme" class="icon-btn" aria-label="Changer de thème">◐</button>
+    <button class="icon-btn burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<section id="accueil" class="cover">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="cover-grid">
+    <div class="stage" id="stage">
+      <div class="artboard">
+        <span class="ui-mark" aria-hidden="true">UI</span>
+        <span class="initials" aria-hidden="true">RK</span>
+        <img id="photo" class="cutout" alt="Portrait de Regina Kemneloum" onerror="this.remove()">
+      </div>
+      <div class="depth d3" data-depth="18" aria-hidden="true"><div class="chip ui" style="--d:1.4s">
+        <span class="pill">Voir le projet</span><span class="toggle"><i></i></span></div></div>
+      <div class="cursor" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#F6EBDD" stroke="#2E1A0E" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Regina</span>
+      </div>
+    </div>
+    <div class="cover-text">
+      <p class="explore">Bonjour ! Je suis</p>
+      <p class="name">Regina Kemneloum</p>
+      <h1>Portfolio</h1>
+      <p class="role"><span id="typed"></span><span class="caret" aria-hidden="true"></span></p>
+      <ul class="focus" aria-label="Domaines">
+        <li class="hot">UI design</li><li>Web</li><li>Mobile</li>
+      </ul>
+      <p class="bio">Passionnée de design d'interface, j'aime concevoir des écrans clairs, cohérents et agréables à utiliser, puis les développer en applications web et mobiles.</p>
+      <dl class="facts">
+        <div><dt>Langues</dt><dd>Français courant, anglais notions</dd></div>
+        <div><dt>Contact</dt><dd><a href="mailto:kemneloumregina@gmail.com">kemneloumregina@gmail.com</a></dd></div>
+        <div><dt>Ville</dt><dd>N'Djamena, Tchad</dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn primary" href="#projets">Voir mes projets</a>
+        <a class="btn" href="#contact">Me contacter</a>
+      </div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 2880 160" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 80 C 240 0, 480 160, 720 80 S 1200 0, 1440 80 S 1920 160, 2160 80 S 2640 0, 2880 80 V160 H0Z"/>
+  </svg>
+</section>
+
+<main>
+
+
+  <section id="apropos" class="block reveal">
+    <h2>Bonjour ! Je suis Regina</h2>
+    <div class="about-grid">
+      <div class="about">
+        <p>Diplômée en génie informatique (Licence 2026) et en informatique appliquée à la gestion (BTS 2025) au CEFOD Business School, à N'Djamena.</p>
+        <p>Pendant mon stage chez Toumai Hanana Technologie Conglomérat, j'ai développé des solutions web et mobiles, créé des formulaires de collecte de données et travaillé sur des équipements réseaux.</p>
+        <p>Passionnée de design d'interface, j'utilise Canva pour mes créations visuelles et j'apprends beaucoup grâce à YouTube, où je découvre des astuces et de nouvelles techniques. Je cherche un master ou une première expérience pour continuer à progresser.</p>
+      </div>
+      <aside class="panel">
+        <h3>Langues</h3>
+        <p>Français : courant<br>Anglais : notions</p>
+        <h3>Contact</h3>
+        <p><a href="mailto:kemneloumregina@gmail.com">kemneloumregina@gmail.com</a><br>N'Djamena, Tchad</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="parcours" class="block reveal">
+    <h2>Parcours</h2>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <section id="projets" class="block reveal">
+    <h2>Projets</h2>
+    <div id="projects" class="grid"></div>
+  </section>
+
+  <section id="competences" class="block reveal">
+    <h2>Compétences</h2>
+    <div id="skills" class="skill-groups"></div>
+  </section>
+
+  <section id="contact" class="block reveal">
+    <h2>Contact</h2>
+    <p>Une opportunité, une question, un projet ? Écrivez-moi.</p>
+    <ul class="links">
+      <li><a href="mailto:kemneloumregina@gmail.com">kemneloumregina@gmail.com</a></li>
+      <li><a href="https://github.com/Kemneloum-Regina" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://linkedin.com/in/régina-kemneloum-044950356" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> Regina Kemneloum · N'Djamena, Tchad</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Capture d'écran" hidden>
+  <button class="lb-close" aria-label="Fermer">✕</button>
+  <button class="lb-nav prev" aria-label="Précédente">‹</button>
+  <img id="lb-img" alt="">
+  <button class="lb-nav next" aria-label="Suivante">›</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
