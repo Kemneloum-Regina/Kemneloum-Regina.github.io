@@ -20,29 +20,48 @@ const timeline = [
   { when: "2026", what: "Licence en Génie Informatique", where: "CEFOD Business School" }
 ];
 
-// Ajoute tes captures dans le dossier images/ puis écris leurs noms ici
+// Contenu des projets : repris des README. Pour la vidéo, mets le nom d'un fichier dans le dossier videos/
+// ou un lien YouTube (ex. "https://youtu.be/xxxxxxxxxxx"). Laisse "" pour ne pas afficher de vidéo.
 const projects = [
   {
     title: "Smart THTC – application web",
-    text: "Portail de gestion avec une interface sombre à fort contraste : tableau de bord, alertes de rupture, historique des ventes, assistant IA et prévision de stock sur 7 jours.",
-    tech: ["UI design", "Django", "MySQL", "scikit-learn", "Chart.js"],
+    text: "Système de gestion de stock et de vente développé pour Toumai Hanana Technologie Conglomérat (THTC), à N'Djamena : un portail web à l'interface sombre et très lisible. Projet de fin de cycle de la Licence en Génie Informatique.",
+    features: [
+      "Tableau de bord : alertes de rupture, ventes du jour et activité récente, connectés aux données réelles.",
+      "Gestion des stocks, approvisionnements et historique des ventes.",
+      "Prévision de stock par intelligence artificielle : ventes estimées sur 7 jours à partir de l'historique, avec le risque de rupture par produit.",
+      "Assistant IA (chatbot) : une question sur le stock, les ruptures ou les ventes.",
+      "Paramètres : profil administrateur, changement de mot de passe et gestion des utilisateurs."
+    ],
+    tech: ["UI design", "Django", "MySQL", "scikit-learn", "Chart.js", "Python"],
     images: [IMG["web-dashboard"], IMG["web-prevision"], IMG["web-chatbot"]],
-    link: "https://github.com/Kemneloum-Regina/-smart-thtc-backend"
+    install: "git clone https://github.com/Kemneloum-Regina/-smart-thtc-backend.git smart-thtc-backend\ncd smart-thtc-backend\npython -m venv venv\nvenv\\Scripts\\activate\npip install -r requirements.txt\npython manage.py migrate\npython manage.py runserver",
+    link: "https://github.com/Kemneloum-Regina/-smart-thtc-backend",
+    video: "videos/smart-thtc-web.mp4",
+    videoTitle: "Aperçu vidéo"
   },
   {
     title: "Smart THTC – application mobile",
-    text: "Interface mobile simple et lisible : scan de produits, état du stock en temps réel, rapport du jour et assistant IA, pour gérer les ventes depuis le téléphone.",
-    tech: ["UI design", "React Native", "Expo", "Django", "MySQL"],
+    text: "L'application mobile de Smart THTC pour gérer les ventes et le stock depuis le téléphone, avec une interface sombre à fort contraste et de grandes zones tactiles pour une utilisation rapide.",
+    features: [
+      "Scanner un produit : lecture rapide d'un code-barres ou capture d'une photo, avec saisie manuelle possible, pour enregistrer une nouvelle vente.",
+      "Consulter le stock : niveau de chaque produit, prix en FCFA et alerte de stock bas.",
+      "Rapport du jour : activité et ventes en temps réel.",
+      "Assistant IA : poser une question au chatbot sur le stock et les ventes.",
+      "Espace administrateur : gestion des fournisseurs et des produits, ajout, modification et approvisionnements."
+    ],
+    tech: ["UI design", "React Native", "Expo", "JavaScript"],
     mobile: true,
     images: [IMG["mob-accueil"], IMG["mob-scan"], IMG["mob-stock"], IMG["mob-splash"]],
-    link: "https://github.com/Kemneloum-Regina/smart-thtc-mobile"
+    install: "git clone https://github.com/Kemneloum-Regina/smart-thtc-mobile.git\ncd smart-thtc-mobile\nnpm install\nnpx expo start",
+    link: "https://github.com/Kemneloum-Regina/smart-thtc-mobile",
+    video: "videos/smart-thtc-mobile.mp4",
+    videoTitle: "Aperçu vidéo"
   },
   {
     title: "Stage chez THTC",
     text: "Développement web et mobile, formulaires de collecte (Google Forms, KoboToolbox) et équipements réseaux.",
-    tech: ["Web", "Mobile", "KoboToolbox", "Réseaux"],
-    images: [],
-    link: ""
+    tech: ["Web", "Mobile", "KoboToolbox", "Réseaux"]
   }
 ];
 
@@ -116,27 +135,58 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowRight") stepLb(1);
 });
 
+function parseVideo(v) {
+  const yt = v.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/);
+  return yt ? { yt: true, src: "https://www.youtube-nocookie.com/embed/" + yt[1] } : { yt: false, src: v };
+}
 projects.forEach(p => {
-  const card = el("article", "card");
-  let shot = null;
-  if (p.images.length) {
-    shot = el("button", "shot"); shot.type = "button";
-    if (p.mobile) {
-      shot.classList.add("phones");
-      p.images.slice(0, 3).forEach(src => { const im = el("img"); im.src = src; im.alt = ""; im.loading = "lazy"; shot.appendChild(im); });
-    } else {
-      const img = el("img"); img.src = p.images[0]; img.alt = "Capture d'écran de " + p.title; img.loading = "lazy";
-      shot.appendChild(img);
+  const art = el("article", "project" + (p.mobile ? " is-mobile" : ""));
+  const head = el("div", "p-head"); head.appendChild(el("h3", "", p.title));
+  const tags = el("ul", "tags"); p.tech.forEach(t => tags.appendChild(el("li", "", t))); head.appendChild(tags);
+  art.append(head, el("p", "p-lead", p.text));
+
+  // 1. Le README, visible directement
+  if (p.features || p.install || p.link || (p.images && p.images.length)) {
+    const body = el("div", "p-body"), readme = el("div", "p-readme");
+    if (p.features) {
+      readme.appendChild(el("h4", "", "Fonctionnalités"));
+      const f = el("ul", "feat"); p.features.forEach(x => f.appendChild(el("li", "", x))); readme.appendChild(f);
     }
-    shot.appendChild(el("span", "count", p.images.length + " captures"));
-    shot.setAttribute("aria-label", "Agrandir les captures de " + p.title);
-    shot.onclick = () => openLb(p.images, 0);
+    if (p.install) {
+      const d = el("details", "install"); d.appendChild(el("summary", "", "Installation"));
+      const pre = el("pre"); pre.appendChild(el("code", "", p.install)); d.appendChild(pre); readme.appendChild(d);
+    }
+    if (p.link) {
+      const a = el("a", "btn-link", "Voir le code sur GitHub"); a.href = p.link; a.target = "_blank"; a.rel = "noopener"; readme.appendChild(a);
+    }
+    body.appendChild(readme);
+    if (p.images && p.images.length) {
+      const g = el("div", "shots");
+      p.images.forEach((src, i) => {
+        const b = el("button", "shot-btn"); b.type = "button"; b.setAttribute("aria-label", "Agrandir la capture " + (i + 1));
+        const im = el("img"); im.src = src; im.alt = "Capture " + (i + 1) + " de " + p.title; im.loading = "lazy";
+        b.appendChild(im); b.onclick = () => openLb(p.images, i); g.appendChild(b);
+      });
+      body.appendChild(g);
+    }
+    art.appendChild(body);
   }
-  const body = el("div", "card-body");
-  body.append(el("h3", "", p.title), el("p", "", p.text));
-  const ul = el("ul", "tags"); p.tech.forEach(t => ul.appendChild(el("li", "", t))); body.appendChild(ul);
-  if (p.link) { const a = el("a", "", "Voir sur GitHub"); a.href = p.link; a.target = "_blank"; a.rel = "noopener"; body.appendChild(a); }
-  if (shot) card.appendChild(shot); card.appendChild(body); $("#projects").appendChild(card);
+
+  // 2. La partie vidéo, après le README
+  if (p.video) {
+    const v = parseVideo(p.video), box = el("div", "p-video");
+    box.appendChild(el("h4", "", p.videoTitle || "Démonstration vidéo"));
+    const frame = el("div", "vframe" + (p.portraitVideo ? " portrait" : ""));
+    if (v.yt) {
+      const f = el("iframe"); f.src = v.src; f.title = "Vidéo : " + p.title; f.loading = "lazy";
+      f.allow = "encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true; frame.appendChild(f);
+    } else {
+      const vid = el("video"); vid.controls = true; vid.preload = "metadata"; vid.playsInline = true; vid.src = v.src;
+      vid.addEventListener("error", () => box.remove()); frame.appendChild(vid);
+    }
+    box.appendChild(frame); art.appendChild(box);
+  }
+  $("#projects").appendChild(art);
 });
 
 // Projecteur lumineux qui suit la souris sur les cartes
@@ -191,7 +241,7 @@ document.querySelectorAll(".block").forEach((sec, i) => {
   if (h2 && names[sec.id]) sec.insertBefore(el("span", "frame-label", "Frame " + (i + 2) + " · " + names[sec.id]), h2);
 });
 // Apparition échelonnée des éléments de chaque section
-[".about p", ".panel", ".timeline li", ".card", ".skill-groups > div", ".links li"].forEach(sel =>
+[".about p", ".panel", ".timeline li", ".project", ".skill-groups > div", ".links li"].forEach(sel =>
   document.querySelectorAll(sel).forEach((n, i) => { n.classList.add("stag"); n.style.setProperty("--i", i); }));
 
 // Apparition au défilement
