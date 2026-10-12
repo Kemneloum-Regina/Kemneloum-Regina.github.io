@@ -27,7 +27,7 @@ const projects = [
     text: "Portail de gestion avec une interface sombre à fort contraste : tableau de bord, alertes de rupture, historique des ventes, assistant IA et prévision de stock sur 7 jours.",
     tech: ["UI design", "Django", "MySQL", "scikit-learn", "Chart.js"],
     images: [IMG["web-dashboard"], IMG["web-prevision"], IMG["web-chatbot"]],
-    link: "https://github.com/Kemneloum-Regina"   // remplace par le lien exact du dépôt
+    link: "https://github.com/Kemneloum-Regina/-smart-thtc-backend"
   },
   {
     title: "Smart THTC – application mobile",
@@ -35,7 +35,7 @@ const projects = [
     tech: ["UI design", "React Native", "Expo", "Django", "MySQL"],
     mobile: true,
     images: [IMG["mob-accueil"], IMG["mob-scan"], IMG["mob-stock"], IMG["mob-splash"]],
-    link: ""
+    link: "https://github.com/Kemneloum-Regina/smart-thtc-mobile"
   },
   {
     title: "Stage chez THTC",
