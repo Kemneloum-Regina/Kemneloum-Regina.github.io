@@ -189,7 +189,7 @@ h2::after{content:"";display:block;width:64px;height:4px;margin-top:14px;border-
 .links a:hover::after{transform:scaleX(1)}
 
 /* Projets : README visible, puis vidéo */
-#projects{display:grid;gap:28px}
+#projects{display:grid;grid-template-columns:1fr;gap:28px}
 .project{display:flex;flex-direction:column;gap:18px;padding:clamp(20px,3vw,32px);background:var(--card);border:1px solid var(--line);border-radius:16px;transition:box-shadow .3s}
 .project:hover{box-shadow:var(--shadow)}
 .p-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}
